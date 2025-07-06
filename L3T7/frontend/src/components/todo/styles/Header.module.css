@@ -1,0 +1,21 @@
+/* components/todo/styles/Header.module.css */
+
+.buttonWrapper{
+    display: flex;
+    direction: row;
+    align-items: right;
+    justify-content: right;
+}
+
+/* BUTTON */
+.logoutButton{
+    outline: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #2b263035;
+}
+
+.logoutButton:hover{
+    border-bottom: 1px solid #2b2630;
+    color: #2b2630;
+}

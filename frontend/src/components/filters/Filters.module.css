@@ -1,0 +1,27 @@
+/* src/components/Filters/Filters.module.css */
+
+.filterWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 8px 0;
+    gap: 5px;
+}
+
+/* todo I would like to have different color & background colors depending on the music, book or podcast main catagories...  */
+.bubble {
+padding: 8px 16px;
+
+    border: none;
+    border-radius: 999px;
+
+    background-color: #ddd;
+    text-transform: lowercase;
+
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.bubble.active {
+    background-color: #8e44ad;
+    color: white;
+}

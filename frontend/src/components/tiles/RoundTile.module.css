@@ -1,0 +1,46 @@
+/* src/components/tiles/RoundTile.module.css */
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px;
+  text-align: center;
+}
+
+.image {
+  width: 50px;
+  height: 50px;
+  /* ?how does this accent-color work. ive not used this method, but would like to learn */
+  border: 2px solid var(--accent-color);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.label {
+  margin-top: 5px;
+}
+
+.favButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  border: none;
+
+  background: none;
+  font-size:  8px;
+  cursor: pointer;
+}
+
+.favIconActive {
+  color: blueviolet;
+}
+
+.favButtonInactive {
+  color: rgba(137, 43, 226, 0.381)
+}
+
+.favButtonInactive:hover {
+  color: blueviolet;
+}

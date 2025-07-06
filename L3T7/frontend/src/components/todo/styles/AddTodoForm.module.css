@@ -1,0 +1,83 @@
+/* AddTodoForm.module.css */
+
+/* FORM */
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  padding: 25px 20px;
+  min-width: 420px;
+
+  gap: 20px;
+  border-radius: 4px;
+
+  background-color: #e7c19e;
+}
+
+/* INPUT FIELD */
+.inputField {
+  padding: 8px;
+  width: 350px;
+
+  border: 1px solid aliceblue;
+  border-radius: 2px;
+
+  background-color: aliceblue;
+  color: #19171e;
+}
+
+.inputField::placeholder {
+  color: #d77041d3;
+}
+
+.inputField:hover {
+  border: 1px solid #19171e;
+}
+
+.inputField:focus {
+  outline: none;
+  border: 1.5px solid #19171e;
+}
+
+/* BUTTON: ADD */
+.addButton {
+  margin: 5px;
+  padding: 15px 13px;
+  background-color: #ddefff;
+
+  border: 1px solid #19171e;
+  border-radius: 2px;
+
+  font-family: "Staatliches", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: #19171e;
+}
+
+.addButton:hover {
+  margin: 0;
+  padding: 20px 18px;
+
+  border: 1px solid aliceblue;
+  box-shadow: 0 4px 12px rgba(215, 207, 207, 0.427);
+
+  background-color: #ddefff;
+
+  font-family: "Staatliches", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: brown;
+}
+
+/* ERROR */
+.inputError {
+  padding: 10px 20px;
+  min-width: 420px;
+
+  border-radius: 4px;
+
+  background-color: #e7c19e89;
+
+  font-size: 13px;
+  color: #ce3e09;
+}

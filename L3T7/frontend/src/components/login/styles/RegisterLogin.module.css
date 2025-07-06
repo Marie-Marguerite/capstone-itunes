@@ -1,0 +1,130 @@
+/* components/login/styles/RegisterLogin.module.css */
+
+/* LABELS */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* FORM: CONTAINERS */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginRegisterForm {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  gap: 10px;
+}
+
+/* FORM: INPUT FIELDS */
+.loginRegisterForm input {
+  padding: 5px;
+
+  border: 1px solid #15110e;
+  border-radius: 0;
+
+  background-color: #ffffff;
+  color: #15110e;
+}
+
+.loginRegisterForm input::placeholder {
+  color: #15110e5d;
+}
+
+.loginRegisterForm input:hover {
+  border-color: #8f9a3e;
+}
+
+.loginRegisterForm input:focus {
+  padding: 5px;
+
+  outline: none;
+  border: 1px solid #b2c526;
+  border-radius: 0;
+}
+
+/* SUCCESS */
+.success {
+  margin: 10px;
+  color: #8f9a3e;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* ERROR */
+.error {
+  padding-left: 6px;
+  color: #bb4940;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.formikError {
+  padding-left: 6px;
+  color: #bb4940;
+  font-size: 12px;
+  text-align: left;
+  font-style: italic;
+}
+
+/* BUTTON: LOGIN & REGISTER */
+.loginRegisterButton {
+  margin: 3px 0;
+  width: 100%;
+  height: 35px;
+
+  border: 1px solid #15110e;
+  border-radius: 0;
+
+  background-color: #e7c19e;
+  color: #15110e;
+  font-size: 13px;
+}
+
+.loginRegisterButton:hover {
+  box-shadow: none;
+  outline: none;
+  border-color: #15110eab;
+
+  background-color: rgb(238, 181, 128);
+  color: #15110e;
+
+  transition: 0.2s;
+}
+
+/* BUTTON: NAVIGATE TO */
+.loginRegisterHereButton {
+  width: 250px;
+  height: 35px;
+  margin: 10px 0;
+  padding: 4px 8px;
+
+  border: 1px solid #15110e;
+  border-radius: 0;
+
+  background-color: #e5c6aa49;
+  color: #15110e;
+  font-size: 13px;
+  text-align: center;
+}
+
+.loginRegisterHereButton:hover {
+  box-shadow: none;
+  outline: none;
+
+  background-color: #d8985cfb;
+
+  transition: 0.2s ease;
+}

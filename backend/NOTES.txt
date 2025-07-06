@@ -1,0 +1,237 @@
+NOTES
+=============================
+client/
+├─ public/
+│  └─ index.html
+│
+├─ src/
+│  ├─ api/
+│  │  └─ itunes.js              # Axios instance + token fetch
+│  │
+│  ├─ assets/                   # Any logos, static images, icons
+│  │
+│  ├─ components/
+│  │  ├─ SearchBar/             
+│  │  │  ├─ SearchBar.jsx       # Formik form + media dropdown
+│  │  │  └─ SearchBar.module.css
+│  │  │
+│  │  ├─ Filters/               
+│  │  │  ├─ Filters.jsx         # Bubble‑style filter buttons
+│  │  │  └─ Filters.module.css
+│  │  │
+│  │  ├─ MediaBlock/            
+│  │  │  ├─ MediaBlock.jsx      # Section wrapper w/ title + background color
+│  │  │  ├─ MediaBlock.module.css
+│  │  │  ├─ BlockTile.jsx       # Rectangular tile (image + text)
+│  │  │  └─ BlockTile.module.css
+│  │  │
+│  │  │
+│  │  ├─ tiles/             
+│  │  │  ├─ RoundTile.jsx       # Circular‑image tile (image + name)
+│  │  │  └─ RoundTile.module.css
+│  │  │
+│  │  ├─ MediaGrid.jsx          # Utility wrapper to lay out tiles responsively
+│  │  │
+│  │  └─ DetailModal/             
+│  │     ├─ DetailModal.jsx       # popup showing full record details
+│  │     └─ DetailModal.module.css
+│  │
+│  ├─ contexts/
+│  │  ├─ SearchContext.jsx      # Holds `results` and `search(term, media)`
+│  │  ├─ FilterContext.jsx       # Holds active filters + `toggleFilter()`
+│  │  └─ FavouritesContext.jsx    # tracks the list of fav’d items + add/remove
+│  │
+│  ├─ hooks/
+│  │  └─ useMediaSections.js    # Helper to split `results` into sections
+│  │
+│  ├─ pages/
+│  │  └─ HomePage.jsx           # Puts together SearchBar → Filters → MediaBlock×3
+│  │
+│  ├─ styles/
+│  │  └─ variables.css          # CSS vars for your media‑block colors, spacing, breakpoints
+│  │
+│  ├─ App.jsx
+│  ├─ main.jsx
+│  └─ index.css                 # global resets, typefaces
+│
+├─ vite.config.js
+└─ package.json
+
+
+Rationale
+components/
+
+SearchBar: a small Formik form with term input + dropdown.
+
+Filters: bubble buttons that toggle filter state.
+
+MediaBlock: wraps each “section” (songs, artists, etc.) with its background color and title.
+
+BlockTile & RoundTile: your two reusable tile shapes.
+
+MediaGrid: handles responsive column layout (e.g. CSS grid with repeat(auto‑fit, minmax(...))).
+
+contexts/:
+
+SearchContext provides fetched results.
+
+FilterContext tracks which filters (song/artist/album/etc.) are active.
+
+hooks/useMediaSections.js:
+A helper that, given the raw results, returns an object like { songs: [...], artists: [...], albums: [...] }.
+
+pages/HomePage.jsx ties everything together in order:
+
+<SearchBar />
+
+<Filters />
+
+<MediaBlock> for each relevant section (conditionally rendered based on dropdown & active filters).
+
+assets/ for any static images or icons.
+
+styles/variables.css for your media‑block colors (e.g. --color-music: #9b59b6; --color-audio: #e67e22; --color-podcast: #f1c40f;).
+
+==============================
+backend/
+├─ .env
+├─ package.json
+├─ index.js                # Entry point: setup Express, middleware, routes, static‑serve
+│
+├─ controllers/
+│  └─ searchController.js  # Logic for calling iTunes API & shaping results
+│
+├─ routes/
+│  └─ search.js            # `/api/search` endpoints (token + search)
+│
+├─ middleware/
+│  ├─ auth.js              # verifyToken → checks for dummy JWT
+│  └─ asyncHandler.js      # DRY wrapper for async route handlers
+│
+├─ utils/
+│  └─ generateToken.js     # (optional) pull your JWT_SECRET & sign a token
+│
+└─ public/                  # `client/dist` build can be copied here for production
+   └─ (static React build)
+
+What each piece does
+.env
+
+Holds PORT, JWT_SECRET, etc.
+
+index.js
+
+Loads env vars, sets up CORS/JSON parsing.
+
+Mounts routes/search.js at /api/search.
+
+In production, serves React’s static files from public/.
+
+controllers/searchController.js
+
+Contains the core logic:
+
+js
+Copy code
+// calls iTunes Search API (via axios),   
+// picks only the fields your frontend needs,  
+// returns JSON.
+routes/search.js
+
+GET /api/search/token → returns a signed dummy JWT.
+
+GET /api/search → protected by auth.js, calls searchController.
+
+middleware/auth.js
+
+Reads Authorization header, checks it matches your dummy JWT.
+
+middleware/asyncHandler.js
+
+Wraps all async route handlers so you don’t need try/catch everywhere.
+
+utils/generateToken.js
+
+Optional helper: uses jsonwebtoken + your JWT_SECRET to sign a token.
+
+public/
+
+When you run npm run build in your client/, copy its output here so Express can serve your React app at /.
+
+In development
+You’ll run two processes side by side:
+
+npm run dev in backend/ (Express on port 8000)
+
+npm run dev in client/ (Vite on port 5173 with proxy to /api)
+
+In production
+Build your React app:
+
+bash
+Copy code
+cd client
+npm run build
+cp -r dist/* ../backend/public/
+Start Express:
+
+bash
+Copy code
+cd ../backend
+npm start
+Your users get both the static React UI and /api/search on the same origin—no CORS or proxy needed.
+
+This covers every backend requirement:
+
+Express serves the React UI and handles /api/search.
+
+Search route fetches and shapes iTunes data (album name, artist, artwork, release date, etc.).
+
+JWT guards the /api/search endpoint (we don’t need full user auth).
+
+No database—all state (favourites, filters) lives in the front‑end.
+
+Let me know if you’d like me to scaffold any of these files or clarify further!
+
+
+
+
+
+
+
+
+Ask ChatGPT
+
+
+
+
+==============================
+
+asyncHandler :
+Here's a simple explanation:
+
+⚙️ asyncHandler is a wrapper that:
+Catches async errors
+
+Sends them to Express's error handling system
+
+Avoids using try/catch inside every route
+
+So instead of:
+
+router.get("/", async (req, res) => {
+  try {
+    // do stuff
+  } catch (error) {
+    next(error);
+  }
+});
+
+You just write:
+
+js
+Copy code
+router.get("/", asyncHandler(async (req, res) => {
+  // do stuff
+}));
+Much cleaner. And DRY.

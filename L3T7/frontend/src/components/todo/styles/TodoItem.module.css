@@ -1,0 +1,123 @@
+/* TodoItem.module.css */
+
+/* LINE ITEM */
+.todoLineItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+  margin: 10px 0;
+}
+
+/* CHECKBOX */
+.checkbox {
+  /* remove default styles */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  height: 15px;
+  width: 15px;
+  min-height: 15px;
+  min-width: 15px;
+  position: relative;
+
+  border: 0.5px solid #c4431d;
+
+  background-color: aliceblue;
+}
+
+.checkbox:hover {
+ border-color: #19171e;
+}
+
+
+/* - draw check mark */
+.checkbox:checked::after {
+  content: "";
+  width: 5px;
+  height: 10px;
+
+  border: 0.5px solid #b73c18;
+  border-width: 0 2px 2px 0;
+
+  transform: rotate(45deg);
+  position: absolute;
+  top: -1px;
+  left: 4px;
+}
+
+/* CONTENT */
+.content {
+  width: 300px;
+  padding: 5px;
+  line-height: 18px;
+  box-sizing: border-box;
+
+  border: 1px solid brown;
+  border-radius: 2px;
+
+  background-color: transparent;
+  color: #2b2630;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: normal;
+  text-align: left;
+}
+
+.content:focus{
+  
+  outline: none;
+  border: 1.5px solid #19171e;
+  background-color: aliceblue;
+  font-size: 12px;
+}
+
+/* BUTTON: EDIT */
+.button {
+  width: 30px;
+  max-width: 30px;
+  min-width: 30px;
+  height: 30px;
+  max-height: 30px;
+  min-height: 30px;
+
+  outline: none;
+  border: 1px solid #c1440e;
+  border-radius: 100%;
+
+  background: none;
+  color: #c1440e;
+}
+
+.button:hover {
+  outline: none;
+  border: 1px solid #c1440e;
+  border-radius: 100%;
+
+  background-color: brown;
+  color: aliceblue;
+}
+
+/* BUTTON: DONE */
+.doneButton:hover {
+  background-color: #DDEFFF;
+  color: brown;
+}
+
+/* COMPLETED */
+/* - text */
+.completedContent {
+  opacity: 0.5;
+  text-decoration: line-through;
+  transition: opacity 0.3s ease;
+
+  color: #b99979;
+}
+
+/* - button: disabled */
+.editButtonDisabled {
+  opacity: 0.4;
+}

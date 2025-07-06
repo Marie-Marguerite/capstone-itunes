@@ -1,0 +1,29 @@
+/* index.css */
+:root {
+  font-family: "Merriweather Sans", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #2b2630;
+  background-color: #F6F1ED;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* HEADINGS */
+h1,
+h2,
+h3 {
+  font-family: "Staatliches", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  margin-bottom: 0;
+  padding: 0;
+  font-size: 45px;
+  letter-spacing: 4px;
+}

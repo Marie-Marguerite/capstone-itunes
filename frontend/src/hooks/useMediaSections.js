@@ -1,0 +1,1 @@
+// src/hooks/useMediaSections.js

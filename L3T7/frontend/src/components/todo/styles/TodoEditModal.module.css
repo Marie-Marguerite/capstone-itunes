@@ -1,0 +1,112 @@
+/* TodoEditModal.module.css */
+
+/** MODAL  */
+/* FULL SCREEN WITH CENTERED MODAL */
+.modalOverlay {
+  top: 0; /* pin to top left corner */
+  left: 0;
+  width: 100vw; /* stretch across the remaining screen (full viewport width) */
+  height: 100vh;  
+  position: fixed;
+  z-index: 1000; /* layer above other content */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #a08884a1;
+}
+
+/* CONTENT AREA */
+.modal {
+
+  min-width: 320px;
+  max-width: 90%;
+  z-index: 1100; /* lift out above/on top of modalOverlay */
+
+  padding: 30px;
+
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  background-color: aliceblue;
+}
+
+/* HEADER */
+.modalHeader {
+  margin-bottom: 16px;
+  
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #b84b20;
+}
+
+/* INPUT AREA */
+.modalInput {
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 8px;
+
+  border: 1px solid #c4431d;
+  border-radius: 2px;
+
+  background-color: rgba(166, 194, 218, 0.406);
+  color: #19171e62;
+}
+
+.modalInput:hover {
+  border-color: #19171e;
+}
+
+.modalInput:focus {
+  outline: none;
+  border: 1.5px solid #19171e;
+  color: #19171e;
+}
+
+/* BUTTONS: GENERAL (spacing/placement) */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* BUTTON: SAVE */
+.saveButton {
+  padding: 8px 16px;
+
+  outline: none;
+  border: 1px solid #c1440e;
+  border-radius: 2px;
+
+  background-color: #adc8df;
+}
+
+.saveButton:hover {  
+  border: 1px solid #c1440e;
+
+  background-color: brown;
+  color: aliceblue;
+}
+
+/* BUTTON: CANCEL */
+.cancelButton {
+  width: 30px;
+  height: 30px;
+
+  outline: none;
+  border: 1px solid #c1440e;   
+  border-radius: 100%;
+
+  background: none;
+  color: #c1440e;
+}
+
+.cancelButton:hover {
+  outline: none;
+  border: 1px solid #c1440e;
+  border-radius: 100%;
+
+  background-color: brown;
+  color: aliceblue;
+}

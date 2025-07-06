@@ -1,0 +1,15 @@
+/* components/todo/styles/ErrorMessage.module.css */
+
+/* ERROR */
+.errorMessage {
+  margin-top: 5px;
+  padding: 10px 20px;
+  min-width: 420px;
+
+  border-radius: 4px;
+
+  background-color: #e7c19e89;
+
+  font-size: 13px;
+  color: #ce3e09;
+}
