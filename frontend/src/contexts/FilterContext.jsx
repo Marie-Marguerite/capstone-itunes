@@ -4,7 +4,7 @@ import React, { createContext, useState, useContext } from "react";
 
 const FilterContext = createContext();
 
-export const FilterProvider = ({ children }) => {
+const FilterProvider = ({ children }) => {
   const [activeFilters, setActiveFilters] = useState([]);
   const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
 
@@ -12,9 +12,7 @@ export const FilterProvider = ({ children }) => {
   const toggleFilter = (filter) => {
     setActiveFilters((prev) =>
       prev.includes(filter)
-        ? //? that is "f"?
-          //? please explain !== again. I keep getting a little confused with it.
-          prev.filter((f) => f !== filter)
+        ? prev.filter((f) => f !== filter)
         : [...prev, filter]
     );
   };
@@ -24,7 +22,7 @@ export const FilterProvider = ({ children }) => {
 
   //* TOGGLE FAVOURITES
   const toggleShowFavouritesOnly = () => {
-    setShowFavouritesOnly = (prev) => !prev;
+    setShowFavouritesOnly((prev) => !prev);
   };
 
   return (
@@ -43,4 +41,5 @@ export const FilterProvider = ({ children }) => {
   );
 };
 
-export const useFilterContext = () => useContext(FilterContext);
+export { FilterContext, FilterProvider}; 
+export const useFilterContext = () => useContext(FilterContext); 

@@ -235,3 +235,38 @@ router.get("/", asyncHandler(async (req, res) => {
   // do stuff
 }));
 Much cleaner. And DRY.
+
+=================
+// searchbar.jsx
+const typeOptions = [
+  { value: "",             label: "All Types" },
+  { value: "musicArtist",  label: "Artist"    },
+  { value: "album",        label: "Album"     },
+];
+
+return (
+  <Formik
+    initialValues={{ term: "", media: "all", type: "" }}
+    onSubmit={({ term, media, type }) => onSearch(term, media, type)}
+  >
+    {/* existing Fields for term & media */}
+    <Field name="type" as="select" className={styles.select}>
+      {typeOptions.map(o => (
+        <option key={o.value} value={o.value}>{o.label}</option>
+      ))}
+    </Field>
+    {/* … */}
+  </Formik>
+);
+
+
+And in SearchContext.jsx:
+// signature change:
+const fetchSearchResults = async (newTerm, newMedia, newType = "") => {
+  // …
+  const res = await axios.get("/api/search", {
+    params: { term: newTerm, media: newMedia, type: newType },
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  // …
+};

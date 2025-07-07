@@ -1,16 +1,22 @@
 // src/components/MediaResultDisplay/MediaBlock.jsx
 import styles from "./MediaBlock.module.css";
-import React, { useState } from "react";
 import BlockTile from "../tiles/BlockTile";
 import RoundTile from "../tiles/RoundTile";
+import { useSearchContext } from "../../contexts/SearchContext";
 
-export default function MediaBlock({ title, type = "block", data = [] }) {
-  const [showAll, setShowAll] = useState(false);
+export default function MediaBlock({
+  title,
+  entity,
+  type = "", 
+  data = [],
+}) {
+  const { fetchMoreResults, loading, offset } = useSearchContext();
 
+  // CHECH TO DISPLAY 'SHOW MORE'
+  const hasMore = data.length >= offset[entity] + 6;
+
+  // IF NO RESPONSE DATA, SHOW NOTHING
   if (!data.length) return null;
-
-  const visibleItems = showAll ? data : data.slice(0, 6);
-  const hasMoreThanSix = data.length > 6;
 
   return (
     <div className={styles.block}>
@@ -18,13 +24,14 @@ export default function MediaBlock({ title, type = "block", data = [] }) {
       <h2 className={styles.title}>{title}</h2>
 
       {/* TILE GRID */}
+      {/* //! check round vs block type implementation, is the type specified in SearchResults.jsx reaching this intended destination? */}
       <div className={styles.tileGrid}>
-        {visibleItems.map((item, index) =>
+        {data.map((item, index) =>
           type === "round" ? (
             <RoundTile
               key={index}
               image={item.artworkUrl100}
-              label={item.artistName || "Unknown Artist"}
+              label={item.artistName || "Unknown"}
               item={item}
             />
           ) : (
@@ -32,23 +39,25 @@ export default function MediaBlock({ title, type = "block", data = [] }) {
               key={index}
               image={item.artworkUrl100}
               title={item.trackName || item.collectionName || "Untitled"}
-              subtitle={item.artistName || "Unknown Artist"}
+              subtitle={item.artistName || "Unknown"}
               date={new Date(item.releaseDate).getFullYear()}
               item={item}
             />
-
           )
         )}
       </div>
 
       {/* BUTTON: SHOW MORE / LESS */}
-      {hasMoreThanSix && (
+      {hasMore && (
         <button
           className={styles.toggleMoreLessButton}
-          onClick={() => setShowAll((prev) => !prev)} // set to previous value
+          onClick={() => fetchMoreResults(entity)}
+          disabled={loading}
         >
-          {showAll ? "Show Less" : "Show More"}
+          {loading ? "Loading..." : "Show More"}
         </button>
+
+        // TODO BUTTON: SHOW LESS
       )}
     </div>
   );

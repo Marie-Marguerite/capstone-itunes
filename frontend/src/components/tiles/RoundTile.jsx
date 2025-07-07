@@ -10,7 +10,7 @@ export default function RoundTile({ image, label, item }) {
   return (
     <div className={styles.tile}>
       {/* IMAGE */}
-      <img src={image} alt={`Portrait of ${label}`} className={image} />
+      <img src={image} alt={`Portrait of ${label}`} className={styles.image} />
       
       {/* TITLE */}
       <h4 className={styles.label}>{label}</h4>

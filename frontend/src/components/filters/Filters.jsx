@@ -4,10 +4,12 @@ import styles from "./Filters.module.css";
 
 import React from "react";
 import { useFilterContext } from "../../contexts/FilterContext";
+import { useFavouritesContext } from "../../contexts/FavouritesContext";
 
 //* FILTER OPTIONS
+//todo split buttons by media groups (music, books, pods) because i want to style each groups corresponding filter differently (different background-color & color...)
+// todo add media groups as filters too 
 const filterOptions = [
-  // "✿",
   "songs",
   "artists",
   "albums",
@@ -21,8 +23,13 @@ const filterOptions = [
 
 //* FILTERS
 export default function Filters() {
-  const { activeFilters, toggleFilter, showFavouritesOnly, toggleShowFavouritesOnly } =
-    useFilterContext();
+  const {
+    activeFilters,
+    toggleFilter,
+    showFavouritesOnly,
+    toggleShowFavouritesOnly,
+    clearFilters,
+  } = useFilterContext();
   const { favourites } = useFavouritesContext();
 
   return (
@@ -30,7 +37,9 @@ export default function Filters() {
       {/* BUTTON: FAVOURITES (only if some) */}
       {favourites.length > 0 && (
         <button
-          className={`${styles.bubble} ${showFavouritesOnly ? styles.active : ""}`}
+          className={`${styles.bubble} ${
+            showFavouritesOnly ? styles.active : ""
+          }`}
           onClick={toggleShowFavouritesOnly}
         >
           ✿
@@ -39,15 +48,29 @@ export default function Filters() {
 
       {/* BUTTONS: FILTER BUBBLES */}
       {filterOptions.map((filter) => (
-        <button
-          key={filter}
-          className={`${styles.bubble} ${
-            activeFilters.includes(filter) ? styles.active : ""
-          }`}
-          onClick={() => toggleFilter(filter)}
-        >
-          {filter}
-        </button>
+        <>
+          {/* - filters */}
+          <button
+            key={filter}
+            className={`${styles.bubble} ${
+              activeFilters.includes(filter) ? styles.active : ""
+            }`}
+            onClick={() => toggleFilter(filter)}
+          >
+            {filter}
+          </button>
+
+          {/* - clear filters */}
+          <button
+            key={filter}
+            className={`${styles.bubble} ${
+              activeFilters.includes(filter) ? styles.active : ""
+            }`}
+            onClick={() => clearFilters(filter)}
+          >
+            x
+          </button>
+        </>
       ))}
     </div>
   );

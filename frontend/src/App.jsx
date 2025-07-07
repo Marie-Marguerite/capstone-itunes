@@ -2,17 +2,20 @@
 import "./App.css";
 
 import React from "react";
-import { SearchProvider } from "./contexts/SearchContext";
 import HomePage from "./pages/HomePage";
+import { SearchProvider } from "./contexts/SearchContext";
+import { FavouritesProvider } from "./contexts/FavouritesContext";
 import { FilterProvider } from "./contexts/FilterContext";
 
 function App() {
   return (
     <>
       <SearchProvider>
-        <FilterProvider>
-          <HomePage />
-        </FilterProvider>
+        <FavouritesProvider>
+          <FilterProvider>
+            <HomePage />
+          </FilterProvider>
+        </FavouritesProvider>
       </SearchProvider>
     </>
   );
