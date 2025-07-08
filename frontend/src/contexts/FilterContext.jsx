@@ -7,6 +7,7 @@ const FilterContext = createContext();
 const FilterProvider = ({ children }) => {
   const [activeFilters, setActiveFilters] = useState([]);
   const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
+  const [mediaFilterGroup, setMediaFilterGroup] = useState("all");
 
   //* TOGGLE FILTER
   const toggleFilter = (filter) => {
@@ -34,6 +35,8 @@ const FilterProvider = ({ children }) => {
         showFavouritesOnly,
         setShowFavouritesOnly,
         toggleShowFavouritesOnly,
+        mediaFilterGroup,
+        setMediaFilterGroup,
       }}
     >
       {children}

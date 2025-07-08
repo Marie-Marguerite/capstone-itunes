@@ -7,7 +7,9 @@
     gap: 5px;
 }
 
-/* todo I would like to have different color & background colors depending on the music, book or podcast main catagories...  */
+/* //? what to use ".group" for? */
+
+/** BUTTON: FILTER BUBBLES - GENERAL */
 .bubble {
 padding: 8px 16px;
 
@@ -16,13 +18,44 @@ padding: 8px 16px;
 
     background-color: #ddd;
     text-transform: lowercase;
-    color: black;
 
     transition: background-color 0.3s ease;
     cursor: pointer;
 }
 
-.bubble.active {
-    background-color: #8e44ad;
+/** BUTTON: FILTER BUBBLES - BY GROUP */
+/* BUTTON GROUP: MUSIC */
+.group.music .bubble{
+    color: #b142e0;
+}
+
+.group.music .bubble.active{
+background-color: #8e44ad;
     color: white;
 }
+
+/* BUTTON GROUP: BOOKS */
+.group.books .bubble{
+    color: #e37738;
+}
+
+.group.books .bubble.active{
+background-color: #a05428;
+    color: white;
+}
+
+/* BUTTON GROUP: PODS */
+.group.pods .bubble{
+    color: #43a368;
+}
+
+.group.pods .bubble.active{
+background-color: #26623d;
+    color: white;
+}
+
+/* TODO: */
+/* BUTTON: CLEAR */
+/* .bubble.clear {} */
+
+/* BUTTON: FAVOURITES */

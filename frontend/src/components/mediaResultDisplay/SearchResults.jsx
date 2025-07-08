@@ -12,14 +12,14 @@ import groupResultsByKind from "../../utils/groupResultsByKind";
 
 export default function SearchResults() {
   const { results } = useContext(SearchContext);
-  const { activeFilters, showFavouritesOnly } = useContext(FilterContext);
+  const { activeFilters, mediaFilterGroup, showFavouritesOnly } = useContext(FilterContext);
   const { favourites } = useFavouritesContext();
 
   // CHOOSE WHICH DATA TO USE (FAVOURITES OR SEARCH RESULTS)
   const dataToUse = showFavouritesOnly ? favourites : results;
 
   // GROUP RAW RESULT ITEMS INTO MEDIA CATEGORIES AND SUBCATEGORIES
-  const grouped = groupResultsByKind(dataToUse, activeFilters);
+  const grouped = groupResultsByKind(dataToUse, activeFilters, mediaFilterGroup);
 
   // CHECK IF THERE ARE ITEMS IN EACH MAJOR BLOCK
   const hasMusic =

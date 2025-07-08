@@ -24,7 +24,6 @@ export default function MediaBlock({
       <h2 className={styles.title}>{title}</h2>
 
       {/* TILE GRID */}
-      {/* //! check round vs block type implementation, is the type specified in SearchResults.jsx reaching this intended destination? */}
       <div className={styles.tileGrid}>
         {data.map((item, index) =>
           type === "round" ? (
@@ -57,7 +56,7 @@ export default function MediaBlock({
           {loading ? "Loading..." : "Show More"}
         </button>
 
-        // TODO BUTTON: SHOW LESS
+        // TODO BUTTON: SHOW LESS (ONLY SHOW THE INITIAL BATCH)
       )}
     </div>
   );
