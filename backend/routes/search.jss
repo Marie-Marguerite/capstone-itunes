@@ -3,15 +3,15 @@
 /*
 ! with results:
 songs;
-musicArtist;
 albums;
-audiobookAuthors;
 ebooks;
 podcasts;
 podcastEpisodes.
 
 !without results:
+musicArtist;
 audiobooks;
+audiobookAuthors;
 podcastAuthors.
 
 */
@@ -91,7 +91,7 @@ router.get(
       "musicArtist",
       "album",
       "audiobook",
-      // "audiobookAuthor",
+      "audiobookAuthor",
       "ebook",
       "podcast",
       "podcastAuthor",
@@ -102,27 +102,19 @@ router.get(
     try {
       // FIRE ONE REQUEST PER ENTITY
       const responses = await Promise.all(
-        entities.map((entity) => {
-          // fetch more than others for audiobook & podcast author to increase changes for results
-          const sliceSize = ["podcastAuthor"].includes(entity) ? 25 : limit;
-          return axios.get("https://itunes.apple.com/search", {
+        // entities.map((ent) =>
+        entities.map((entity) =>
+
+          axios.get("https://itunes.apple.com/search", {
             params: {
               term,
               entity,
-              limit: sliceSize,
+              // entity: ent,
+              limit,
               offset,
             },
-          });
-        })
-      );
-
-      //!
-      console.log(
-        "PARALLEL RESPONSES:",
-        responses.map((r) => ({
-          entity: r.config.params.entity,
-          count: r.data.results.length,
-        }))
+          })
+        )
       );
 
       //* 3. COMBINE ALL RESULTS
@@ -134,13 +126,9 @@ router.get(
         const key =
           item.collectionViewUrl ||
           item.trackViewUrl ||
-          item.artistViewUrl ||
-          item.collectionId?.toString() ||
-          item.trackId?.toString() ||
-          item.artistId?.toString();
-
-        if (!key) return;
-        if (!uniqueMap.has(key)) {
+          item.artistviewUrl ||
+          item.trackId;
+        if (key && !uniqueMap.has(key)) {
           uniqueMap.set(key, item);
         }
       });
@@ -168,10 +156,10 @@ router.get(
       return res.json(simplifiedResults);
     } catch (error) {
       console.error(
-        "itunes parallel-fetch error:",
+        "itunes fetch error:",
         error.response?.data || error.message
       );
-      return res.status(502).json({ message: "itunes API Error" });
+      return res.status(502).json({ message: "API Error" });
     }
   })
 );

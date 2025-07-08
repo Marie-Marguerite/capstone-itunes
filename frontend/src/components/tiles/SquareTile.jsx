@@ -1,9 +1,9 @@
-// src/components/tiles/BlockTile.jsx
-import styles from "./BlockTile.module.css";
+// src/components/tiles/SquareTile.jsx
+import styles from "./SquareTile.module.css";
 import React from "react";
-import { useFavouritesContext } from "../../contexts/FavouritesContext";
+import { useFavouritesContext } from "../../contexts/useFavouritesContext";
 
-export default function BlockTile({ image, title, subtitle, date, item }) {
+export default function SquareTile({ image, title, subtitle, date, item }) {
   //? why not  const {toggleFavourites, isFavourite } = useContext(FavouritesContext);
 
   const { toggleFavourite, isFavourite } = useFavouritesContext();

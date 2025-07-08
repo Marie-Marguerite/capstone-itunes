@@ -3,13 +3,13 @@
 import styles from "./Filters.module.css";
 
 import React from "react";
-import { useFilterContext } from "../../contexts/FilterContext";
-import { useFavouritesContext } from "../../contexts/FavouritesContext";
+import { useFilterContext } from "../../contexts/useFilterContext";
+import { useFavouritesContext } from "../../contexts/useFavouritesContext";
 
 //* FILTER GROUPS
 const filterGroups = {
   music: ["songs", "artists", "albums"],
-  books: ["audiobooks", "authors", "ebooks"],
+  books: ["audiobooks", "audiobookAuthors", "ebooks"],
   pods: ["podcasts", "podcastAuthors", "podcastEpisodes"],
 };
 
@@ -68,7 +68,7 @@ export default function Filters() {
       {activeFilters.length > 0 && (
         <button
           className={`${styles.bubble} ${styles.clear}`}
-          onClick={() => clearFilters(filter)}
+          onClick={() => clearFilters()}
         >
           ✖ clear
         </button>

@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Filters from "../components/Filters/Filters";
 import { SearchContext } from "../contexts/SearchContext";
-import SearchResults from "../components/MediaResultDisplay/SearchResults";
+import SearchResults from "../components/displayResults/SearchResults";
 
 export default function HomePage() {
   const { fetchSearchResults, results, error } = useContext(SearchContext);

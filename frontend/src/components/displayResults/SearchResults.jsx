@@ -1,37 +1,48 @@
-// components/MediaResultDisplay/SearchResults
+// components/displayResults/SearchResults
 
 // NOTE: renders grouped media blocks (Music, Books, Podcasts) based on search results or favourites
 
 // import styles from "./SearchResult.";
 import React, { useContext } from "react";
-import MediaBlock from "./MediaBlock";
+import MediaBlock from "../tilesBlock/MediaBlock";
 import { SearchContext } from "../../contexts/SearchContext";
 import { FilterContext } from "../../contexts/FilterContext";
-import { useFavouritesContext } from "../../contexts/FavouritesContext";
+import { useFavouritesContext } from "../../contexts/useFavouritesContext";
 import groupResultsByKind from "../../utils/groupResultsByKind";
 
 export default function SearchResults() {
   const { results } = useContext(SearchContext);
-  const { activeFilters, mediaFilterGroup, showFavouritesOnly } = useContext(FilterContext);
+  const { activeFilters, mediaFilterGroup, showFavouritesOnly } =
+    useContext(FilterContext);
   const { favourites } = useFavouritesContext();
 
   // CHOOSE WHICH DATA TO USE (FAVOURITES OR SEARCH RESULTS)
-  const dataToUse = showFavouritesOnly ? favourites : results;
+  const dataToUse = Array.isArray(showFavouritesOnly ? favourites : results)
+    ? showFavouritesOnly
+      ? favourites
+      : results
+    : [];
 
   // GROUP RAW RESULT ITEMS INTO MEDIA CATEGORIES AND SUBCATEGORIES
-  const grouped = groupResultsByKind(dataToUse, activeFilters, mediaFilterGroup);
+  const grouped = groupResultsByKind(
+    dataToUse,
+    activeFilters,
+    mediaFilterGroup
+  );
 
   // CHECK IF THERE ARE ITEMS IN EACH MAJOR BLOCK
   const hasMusic =
-    grouped.songs.length || grouped.artists.length || grouped.albums.length;
+    grouped.music.songs.length ||
+    grouped.music.artists.length ||
+    grouped.music.albums.length;
   const hasBooks =
-    grouped.audiobooks.length ||
-    grouped.authors.length ||
-    grouped.ebooks.length;
+    grouped.books.audiobooks.length ||
+    grouped.books.audiobookAuthors.length ||
+    grouped.books.ebooks.length;
   const hasPodcasts =
-    grouped.podcasts.length ||
-    grouped.podcastors.length ||
-    grouped.podcastEpisodes.length;
+    grouped.pods.podcasts.length ||
+    grouped.pods.podcastAuthors.length ||
+    grouped.pods.podcastEpisodes.length;
 
   return (
     <>
@@ -44,7 +55,7 @@ export default function SearchResults() {
             <MediaBlock
               title="Songs"
               entity="song"
-              type="block"
+              type="square"
               data={grouped.music.songs}
             />
           )}
@@ -62,7 +73,7 @@ export default function SearchResults() {
             <MediaBlock
               title="Albums"
               entity="album"
-              type="block"
+              type="square"
               data={grouped.music.albums}
             />
           )}
@@ -78,17 +89,17 @@ export default function SearchResults() {
             <MediaBlock
               title="Audiobooks"
               entity="audiobook"
-              type="block"
+              type="square"
               data={grouped.books.audiobooks}
             />
           )}
           {/* - authors */}
-          {grouped.books.authors.length > 0 && (
+          {grouped.books.audiobookAuthors.length > 0 && (
             <MediaBlock
               title="Authors"
-              entity="author"
+              entity="audiobookAuthor"
               type="round"
-              data={grouped.books.authors}
+              data={grouped.books.audiobookAuthors}
             />
           )}
           {/* - ebooks */}
@@ -96,7 +107,7 @@ export default function SearchResults() {
             <MediaBlock
               title="eBooks"
               entity="ebook"
-              type="block"
+              type="square"
               data={grouped.books.ebooks}
             />
           )}
@@ -111,7 +122,7 @@ export default function SearchResults() {
             <MediaBlock
               title="Podcasts"
               entity="podcast"
-              type="block"
+              type="square"
               data={grouped.pods.podcasts}
             />
           )}
@@ -129,8 +140,8 @@ export default function SearchResults() {
             <MediaBlock
               title="Episodes"
               entity="podcastEpisode"
-              type="block"
-              data={grouped.pods.podcasstEpisodes}
+              type="square"
+              data={grouped.pods.podcastEpisodes}
             />
           )}
         </div>

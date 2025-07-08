@@ -23,7 +23,7 @@ export default function groupResultsByKind(
       // - music
       music: { songs: [], artists: [], albums: [] },
       // - books
-      books: { audiobooks: [], authors: [], ebooks: [] },
+      books: { audiobooks: [], audiobookAuthors: [], ebooks: [] },
       // - pods
       pods: { podcasts: [], podcastAuthors: [], podcastEpisodes: [] },
     };
@@ -38,7 +38,7 @@ export default function groupResultsByKind(
     // - music
     music: { songs: [], artists: [], albums: [] },
     // - books
-    books: { audiobooks: [], authors: [], ebooks: [] },
+    books: { audiobooks: [], audiobookAuthors: [], ebooks: [] },
     // - pods
     pods: { podcasts: [], podcastAuthors: [], podcastEpisodes: [] },
   };
@@ -51,6 +51,7 @@ export default function groupResultsByKind(
     if (mediaFilterGroup === "all" || mediaFilterGroup === "music") {
       // - song
       if (kind === "song" && (noFilters || filters.includes("songs"))) {
+        // filter.includes("x"): x = plural (comes from filter categories)
         groups.music.songs.push(item);
       }
       // - artist
@@ -74,7 +75,7 @@ export default function groupResultsByKind(
     if (mediaFilterGroup === "all" || mediaFilterGroup === "books") {
       // - audiobook
       if (
-        kind === "audiobook" &&
+        (wrapperType === "audiobook" || kind === "audiobook") &&
         (noFilters || filters.includes("audiobooks"))
       ) {
         groups.books.audiobooks.push(item);
@@ -83,9 +84,9 @@ export default function groupResultsByKind(
       else if (
         wrapperType === "artist" &&
         (artistType === "Author" || artistType === "Writer") &&
-        (noFilters || filters.includes("authors"))
+        (noFilters || filters.includes("audiobookAuthors"))
       ) {
-        groups.books.authors.push(item);
+        groups.books.audiobookAuthors.push(item);
       }
       // - ebooks
       else if (kind === "ebook" && (noFilters || filters.includes("ebooks"))) {
@@ -101,8 +102,10 @@ export default function groupResultsByKind(
       }
       // - podcastAuthors
       else if (
-        wrapperType === "artist" &&
-        artistType === "Podcast Author" &&
+        ((wrapperType === "artist" && artistType === "Podcast Author") ||
+          wrapperType === "podcastAuthor" ||
+          kind === "podcastAuthor" ||
+          kind === "Podcast Aurhor") &&
         (noFilters || filters.includes("podcastAuthors"))
       ) {
         groups.pods.podcastAuthors.push(item);

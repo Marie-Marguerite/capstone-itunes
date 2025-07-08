@@ -5,16 +5,19 @@ import styles from "./SearchBar.module.css";
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import searchIcon from "../../assets/searchIcon.png";
-import MainMediaFilter from '../filters/MainMediaFilter';
+import MainMediaFilter from "../filters/MainMediaFilter";
 
 export default function SearchBar({ onSearch }) {
   return (
     <div className={styles.searchBarWrapper}>
       <Formik
-      // VALUE GAINED: USER SEARCH TERM
+        // VALUE GAINED: USER SEARCH TERM
         initialValues={{ term: "" }}
         onSubmit={(values) => {
-          onSearch(values.term.trim());
+          // Prevent blank requests
+          const trimmed = values.term.trim();
+          if (!trimmed) return;
+          onSearch(trimmed);
         }}
       >
         {() => (
@@ -29,16 +32,12 @@ export default function SearchBar({ onSearch }) {
 
             {/* FILTER: MEDIA TYPE DROPDOWN */}
             <div className={styles.select}>
-              <MainMediaFilter/>
+              <MainMediaFilter />
             </div>
 
             {/* SUBMIT */}
             <button type="submit" className={styles.button}>
-              <img
-                src={searchIcon}
-                alt="⌕"
-                className={styles.searchIcon}
-              />
+              <img src={searchIcon} alt="⌕" className={styles.searchIcon} />
             </button>
           </Form>
         )}

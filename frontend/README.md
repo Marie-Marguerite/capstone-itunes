@@ -27,3 +27,7 @@ collection  | Album             | album
 artist      | Artist            | artist
             | Author            |
             | Podcast Author    |
+
+### NOTE
+plural: filters
+singular: entity

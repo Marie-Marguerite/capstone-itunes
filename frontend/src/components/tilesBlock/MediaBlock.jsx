@@ -1,16 +1,26 @@
-// src/components/MediaResultDisplay/MediaBlock.jsx
+// src/components/tileBlock/MediaBlock.jsx
 import styles from "./MediaBlock.module.css";
-import BlockTile from "../tiles/BlockTile";
+import SquareTile from "../tiles/SquareTile";
 import RoundTile from "../tiles/RoundTile";
-import { useSearchContext } from "../../contexts/SearchContext";
-
+import { useSearchContext } from "../../contexts/useSearchContext";
+import React, {useEffect} from "react";
 export default function MediaBlock({
   title,
   entity,
-  type = "", 
+  type = "square", 
   data = [],
 }) {
   const { fetchMoreResults, loading, offset } = useSearchContext();
+
+  //!
+  useEffect (()=>{
+    if (data.length){
+      console.log(`[MediaBlock:${entity}] sample item:`, data[0]);
+    }
+  }, [entity, data]);
+
+// FALLBACK IMAGE
+const fallbackImage = "../../assets/fallbackImage100.png"
 
   // CHECH TO DISPLAY 'SHOW MORE'
   const hasMore = data.length >= offset[entity] + 6;
@@ -29,16 +39,16 @@ export default function MediaBlock({
           type === "round" ? (
             <RoundTile
               key={index}
-              image={item.artworkUrl100}
+              image={item.artworkUrl100 || item.artworkUrl600 || fallbackImage}
               label={item.artistName || "Unknown"}
               item={item}
             />
           ) : (
-            <BlockTile
+            <SquareTile
               key={index}
-              image={item.artworkUrl100}
+              image={item.artworkUrl100 || item.artworkUrl600 || fallbackImage}
               title={item.trackName || item.collectionName || "Untitled"}
-              subtitle={item.artistName || "Unknown"}
+              subtitle={item.artistName || item.collectionName || "Unknown"}
               date={new Date(item.releaseDate).getFullYear()}
               item={item}
             />
@@ -61,3 +71,5 @@ export default function MediaBlock({
     </div>
   );
 }
+
+// note: https://icons8.com/icons/set/artwork

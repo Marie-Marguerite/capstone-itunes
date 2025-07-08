@@ -1,6 +1,6 @@
 // src/contexts/FilterContext.jsx
 
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState } from "react";
 
 const FilterContext = createContext();
 
@@ -44,5 +44,4 @@ const FilterProvider = ({ children }) => {
   );
 };
 
-export { FilterContext, FilterProvider}; 
-export const useFilterContext = () => useContext(FilterContext); 
+export { FilterContext, FilterProvider };

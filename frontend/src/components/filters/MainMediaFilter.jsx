@@ -1,6 +1,6 @@
 // src/components/filters/MainMediaFilter.jsx
 
-import { useFilterContext } from "../../contexts/FilterContext";
+import { useFilterContext } from "../../contexts/useFilterContext";
 
 const mediaOptions = [
   { value: "all", label: "All" },

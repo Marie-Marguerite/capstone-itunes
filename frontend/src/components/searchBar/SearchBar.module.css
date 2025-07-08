@@ -3,7 +3,7 @@
 .searchBarWrapper {
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding:8px;
   border-bottom: 2px solid coral;
 }
 
@@ -25,6 +25,11 @@
 }
 
 .button{
-    padding: 8px 16px;
+    padding: 2px 2px;
     
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
 }

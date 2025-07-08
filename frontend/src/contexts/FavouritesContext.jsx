@@ -1,10 +1,10 @@
 // src/contexts/FavouritesContext.jsx
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 const FavouritesContext = createContext();
 
-export const FavouritesProvider = ({ children }) => {
+const FavouritesProvider = ({ children }) => {
   const [favourites, setFavourites] = useState([]);
 
   // ADD/REMOVE FAVOURITES (TOGGLE)
@@ -22,7 +22,7 @@ export const FavouritesProvider = ({ children }) => {
   // CHECK IF ITEM IS A FAVOURITE
   const isFavourite = (item) => {
     return favourites.some(
-      (fav => fav.collectionViewUrl === item.collectionViewUrl)
+      (fav) => fav.collectionViewUrl === item.collectionViewUrl
     );
   };
 
@@ -35,4 +35,4 @@ export const FavouritesProvider = ({ children }) => {
   );
 };
 
-export const useFavouritesContext = () => useContext(FavouritesContext);
+export { FavouritesContext, FavouritesProvider };

@@ -10,7 +10,7 @@ const initialOffset = {
   album: 0,
   musicArtist: 0,
   audiobook: 0,
-  author: 0, // ? does "author" exist in itunes response? or must it be "audiobookAuthor" to match itunes
+  audiobookAuthor: 0,
   ebook: 0,
   podcast: 0,
   podcastAuthor: 0,
@@ -43,17 +43,15 @@ const SearchProvider = ({ children }) => {
         },
         params: {
           term: newTerm,
-          media: "all",
           limit: 25,
-          offset: 0
+          offset: 0,
         },
       });
 
       setResults(res.data);
-
     } catch (err) {
       setError(
-        err?.response?.data?.message || "Oh my hat, something went wrong!"
+        err?.response?.data?.message || "Oh my hat, something went wrong..."
       );
     } finally {
       setLoading(false);
@@ -67,13 +65,13 @@ const SearchProvider = ({ children }) => {
     const currentOffset = offset[entity] || 0;
 
     try {
-          const token = (await axios.get("/api/search/token")).data.token;
+      const token = (await axios.get("/api/search/token")).data.token;
       const res = await axios.get("/api/search", {
         headers: { Authorization: `Bearer ${token}` },
         params: {
           term,
           entity: entity,
-          limit: 15, //todo (l): check that you are happy with this once app is up and running.
+          limit: 15,
           offset: currentOffset,
         },
       });
@@ -101,6 +99,7 @@ const SearchProvider = ({ children }) => {
         error,
         fetchSearchResults,
         fetchMoreResults,
+        offset,
       }}
     >
       {children}
