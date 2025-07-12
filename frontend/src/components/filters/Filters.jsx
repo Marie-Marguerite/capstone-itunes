@@ -57,7 +57,7 @@ export default function Filters() {
               activeFilters.includes(filter) ? styles.active : ""
             }`}
             // Toggle filter (active/inactive)
-            onClick={toggleFilter}
+            onClick={()=>toggleFilter(filter)}
           >
             {filter}
           </button>

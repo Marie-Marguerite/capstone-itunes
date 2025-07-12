@@ -7,7 +7,7 @@
     gap: 5px;
 }
 
-/* //? what to use ".group" for? */
+/* todo i want the lable Media Type to be invisible.  */
 
 /** BUTTON: FILTER BUBBLES - GENERAL */
 .bubble {
@@ -29,6 +29,7 @@ padding: 8px 16px;
     color: #b142e0;
 }
 
+/* ! this is styling the buttons when a media group filter is on. however i want this styling to be on the buttons when media type all is selected as well.  */
 .group.music .bubble.active{
 background-color: #8e44ad;
     color: white;

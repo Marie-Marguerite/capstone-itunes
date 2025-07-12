@@ -5,11 +5,11 @@
 
 
 //* 1. REJECT NON APPLICATION/JSON TYPE REQUESTS
-const requireJson = (request, response, next) => {
-  if (!request.is("application/json")) {
+const requireJson = (REQUEST, res, next) => {
+  if (!REQUEST.is("application/json")) {
     console.log(`[REJECTED] Wrong format - not application/json`);
 
-    return response
+    return res
       .status(400)
       .json({ message: "Only JSON requests are allowed." });
   }
@@ -18,16 +18,16 @@ const requireJson = (request, response, next) => {
 };
 
 //* 2. REJECT TODOS OVER 140 CHARACTERS LIMIT
-const rejectLongTodos = (request, response, next) => {
+const rejectLongTodos = (req, res, next) => {
   if (
-    typeof request.body.content === "string" &&
-    request.body.content.length > 140
+    typeof req.body.content === "string" &&
+    req.body.content.length > 140
   ) {
     console.log(
-      `[REJECTED] Too long (140character max) - Content has ${request.body.content.length}char.`
+      `[REJECTED] Too long (140character max) - Content has ${req.body.content.length}char.`
     );
 
-    return response
+    return res
       .status(400)
       .json({ message: "Todo content exceeds 140 characters." });
   }
@@ -36,18 +36,18 @@ const rejectLongTodos = (request, response, next) => {
 };
 
 //* 3. ONLY ALLOW @GMAIL.COM EMAIL ADDRESSES TO REGISTER (USER REGISTRATION)
-const gmailOnly = (request, response, next) => {
+const gmailOnly = (req, res, next) => {
   //  Checks
-  console.log("Check email:", request.body?.email || request.user?.email);
+  console.log("Check email:", req.body?.email || req.user?.email);
 
-  const userEmail = request.body?.email || request.user?.email;
+  const userEmail = req.body?.email || req.user?.email;
 
   if (!userEmail || !userEmail?.endsWith("@gmail.com")) {
     console.log(
       `[REJECTED] Registered with non-gmail email address (not  @gmail.com) || no email`
     );
 
-    return response
+    return res
       .status(403)
       .json({ message: "You can only register with a Gmail email address." });
   }

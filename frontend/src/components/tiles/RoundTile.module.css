@@ -8,6 +8,18 @@
   text-align: center;
 }
 
+/* CLICKABLE AREA */
+.clickableArea {
+  cursor: pointer;
+}
+
+.clickableArea:hover {
+  text-decoration: underline;
+  color: tomato;
+}
+
+
+/* IMAGE */
 .image {
   width: 50px;
   height: 50px;
@@ -17,10 +29,12 @@
   object-fit: cover;
 }
 
+/* LABEL */
 .label {
   margin-top: 5px;
 }
 
+/* BUTTON: FAVOURITE */
 .favButton {
   position: absolute;
   top: 8px;

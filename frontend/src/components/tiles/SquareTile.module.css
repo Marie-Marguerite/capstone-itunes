@@ -2,11 +2,14 @@
 
 .tile {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content:space-between;
   margin: 16px;
+  padding: 5px;
   /* gap: 16px; */
   /* padding: 16px; */
-  /* background-color: var(--title-bg); */
+  background-color: lavender;
   border-radius: 12px;
 }
 
@@ -17,8 +20,24 @@
   object-fit: cover;
 }
 
-.info h4 {
+/* ! this is on all titles and not just the ones that are links (album names & artit/authors...) */
+.titleLink {
   margin: 0;
+    cursor: pointer;
+
+}
+.titleLink:hover {
+  color:blueviolet;
+}
+
+.subtitleLink {
+  margin: 0;
+    cursor: pointer;
+}
+
+.subtitleLink:hover{
+  color: tomato;
+
 }
 
 .info p {
@@ -32,7 +51,8 @@
 
   border: none;
 
-  background: none;
+  /* !notworking. there is a grey background */
+  background: transparent !important; 
   font-size:  8px;
   cursor: pointer;
 }
@@ -42,7 +62,8 @@
 }
 
 .favButtonInactive {
-  color: rgba(137, 43, 226, 0.381)
+  color: rgba(137, 43, 226, 0.381);
+
 }
 
 .favButtonInactive:hover {

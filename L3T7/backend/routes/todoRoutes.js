@@ -19,96 +19,96 @@ router.use(gmailOnly);
 
 //* GET ALL TODOS
 //  (Private - fetch all user's todos if user is logged in)
-router.get("/", async (request, response) => {
+router.get("/", async (req, res) => {
   try {
-    const todos = await Todo.find({ user: request.user.id });
-    response.json({ todos });
+    const todos = await Todo.find({ user: req.user.id });
+    res.json({ todos });
   } catch (error) {
-    response.status(500).json({ message: "Failed to fetch todos." });
+    res.status(500).json({ message: "Failed to fetch todos." });
   }
 });
 
 //* CREATE/POST NEW TODO
 //  (Private - add new todo for logged in user)
-router.post("/", requireJson, rejectLongTodos, async (request, response) => {
-  const { content } = request.body;
+router.post("/", requireJson, rejectLongTodos, async (req, res) => {
+  const { content } = req.body;
 
   //  Middleware already checks for content-type and length
   if (!content) {
-    return response.status(400).json({ message: "Content is required." });
+    return res.status(400).json({ message: "Content is required." });
   }
 
   try {
     const newTodo = await Todo.create({
       content,
       completed: false,
-      user: request.user.id,
+      user: req.user.id,
     });
-    response.status(201).json({ todo: newTodo });
+    res.status(201).json({ todo: newTodo });
   } catch (error) {
-    response.status(500).json({ message: "Failed to add todo." });
+    res.status(500).json({ message: "Failed to add todo." });
   }
 });
 
 //* EDIT/PUT TODO CONTENT
 //  (Private - update content of a specific todo)
-router.put("/:id", requireJson, rejectLongTodos, async (request, response) => {
-  const { content } = request.body;
+router.put("/:id", requireJson, rejectLongTodos, async (req, res) => {
+  const { content } = req.body;
   try {
     const todo = await Todo.findOneAndUpdate(
-      { _id: request.params.id, user: request.user.id },
+      { _id: req.params.id, user: req.user.id },
       { content },
       { new: true }
     );
 
     if (!todo) {
-      return response.status(404).json({ message: "Failed to update todo." });
+      return res.status(404).json({ message: "Failed to update todo." });
     }
 
-    response.json({ todo });
+    res.json({ todo });
   } catch (error) {
-    response.status(500).json({ message: "failed to update todo." });
+    res.status(500).json({ message: "failed to update todo." });
   }
 });
 
 //* DELETE TODO
 //  (Private - delete a specific todo)
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", async (req, res) => {
   try {
     const deleted = await Todo.findOneAndDelete({
-      _id: request.params.id,
-      user: request.user.id,
+      _id: req.params.id,
+      user: req.user.id,
     });
 
     if (!deleted) {
-      return response.status(404).json({ message: "Todo not found." });
+      return res.status(404).json({ message: "Todo not found." });
     }
 
-    response.json({ message: "Todo deleted." });
+    res.json({ message: "Todo deleted." });
   } catch (error) {
-    response.status(500).json({ message: "Delete failed." });
+    res.status(500).json({ message: "Delete failed." });
   }
 });
 
 //* TOGGLE/PATCH TODO COMPLETE/INCOMPLETE
 //  (Private - toggle the completion status (checkbox))
-router.patch("/:id/toggle", requireJson, async (request, response) => {
+router.patch("/:id/toggle", requireJson, async (req, res) => {
   try {
     const todo = await Todo.findOne({
-      _id: request.params.id,
-      user: request.user.id,
+      _id: req.params.id,
+      user: req.user.id,
     });
 
     if (!todo) {
-      return response.status(404).json({ message: "Todo not found." });
+      return res.status(404).json({ message: "Todo not found." });
     }
 
     todo.completed = !todo.completed;
     await todo.save();
 
-    response.json({ todo });
+    res.json({ todo });
   } catch (error) {
-    response.status(500).json({ message: "Toggle failed." });
+    res.status(500).json({ message: "Toggle failed." });
   }
 });
 

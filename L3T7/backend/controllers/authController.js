@@ -5,12 +5,12 @@ const jwt = require("jsonwebtoken"); // for creating JWTs
 const User = require("../models/User");
 
 //* 1. REGISTER USER
-async function registerUser(request, response) {
-  const { email, password } = request.body;
+async function registerUser(req, res) {
+  const { email, password } = req.body;
 
   // CHECK: EMAIL & PASSWORD REQUIRED
   if (!email || !password) {
-    return response
+    return res
       .status(400)
       .json({ message: "Email and password are required." });
   }
@@ -18,7 +18,7 @@ async function registerUser(request, response) {
   // CHECK: DUPLICATE USER (ALREADY EXISTS)
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    return response.status(409).json({ message: "User already exists." });
+    return res.status(409).json({ message: "User already exists." });
   }
 
   // HASH PASSWORD (using bcrypt)
@@ -29,21 +29,21 @@ async function registerUser(request, response) {
 
   try {
     await newUser.save();
-    response.status(201).json({ message: "User registered successfully." });
+    res.status(201).json({ message: "User registered successfully." });
   } catch (error) {
-    response
+    res
       .status(500)
       .json({ message: "Something went wrong during user registration." });
   }
 }
 
 //* 2. LOGIN USER
-async function loginUser(request, response) {
-  const { email, password } = request.body;
+async function loginUser(req, res) {
+  const { email, password } = req.body;
 
   // CHECK REQUIRED FIELDS (VALIDATE INPUT)
   if (!email || !password) {
-    return response
+    return res
       .status(400)
       .json({ message: "Email and password are required." });
   }
@@ -51,7 +51,7 @@ async function loginUser(request, response) {
   // FIND USER IN DATABASE BY EMAIL
   const user = await User.findOne({ email });
   if (!user) {
-    return response
+    return res
       .status(401)
       .json({ message: "No user registered with that email." });
   }
@@ -59,14 +59,14 @@ async function loginUser(request, response) {
   // COMPARE PASSWORDS (PROVIDED VS DATABASE)
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return response.status(401).json({ message: "Invalid email or password." });
+    return res.status(401).json({ message: "Invalid email or password." });
   }
 
   // GENERATE JWT TOKEN (EXPIRES: 1H)
   const payload = { email: user.email, id: user._id };
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-  response.status(200).json({
+  res.status(200).json({
     message: "Login successful.",
     token,
   });

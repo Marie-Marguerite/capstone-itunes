@@ -13,3 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+p {
+  font-size: 12px;
+}
